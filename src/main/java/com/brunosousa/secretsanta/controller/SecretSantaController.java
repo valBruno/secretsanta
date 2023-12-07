@@ -16,6 +16,8 @@ public class SecretSantaController {
 
     @GetMapping("/")
     public ResponseEntity<String> draw() {
-        return ResponseEntity.ok("Hello, world!");
+
+        String response = service.draw();
+        return ResponseEntity.ok(response);
     }
 }
