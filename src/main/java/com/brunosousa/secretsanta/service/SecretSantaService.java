@@ -1,6 +1,9 @@
 package com.brunosousa.secretsanta.service;
 
+import com.brunosousa.secretsanta.model.AddParticipantRecord;
 import com.brunosousa.secretsanta.model.SecretSanta;
+import com.brunosousa.secretsanta.model.SecretSantaDrawParticipant;
+import com.brunosousa.secretsanta.repository.SecretSantaDrawParticipantRepository;
 import com.brunosousa.secretsanta.repository.SecretSantaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,9 @@ public class SecretSantaService {
 
     @Autowired
     SecretSantaRepository repository;
+
+    @Autowired
+    SecretSantaDrawParticipantRepository drawParticipantRepository;
 
     public String draw(List<String> names) {
 
@@ -35,5 +41,23 @@ public class SecretSantaService {
 
     public SecretSanta createSecretSanta(SecretSanta p) {
         return repository.save(p);
+    }
+
+    public SecretSanta getSecretSanta(Long id) {
+        return repository.findById(id).orElseThrow();
+    }
+
+    public SecretSantaDrawParticipant addParticipant(Long id, AddParticipantRecord r) {
+
+        SecretSantaDrawParticipant add = new SecretSantaDrawParticipant();
+        add.setDrawId(id);
+        add.setParticipantId(r.participantId());
+        add.setGiftSuggestions(r.giftSuggestions());
+
+        return drawParticipantRepository.save(add);
+
+
+
+
     }
 }

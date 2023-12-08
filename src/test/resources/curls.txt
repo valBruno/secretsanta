@@ -11,3 +11,6 @@ curl -X POST -H "Content-Type: application/json" -d '{"name": "Alice", "email": 
 
 GET participant
 curl -X GET http://localhost:8080/api/v1/secretsanta/participants/1
+
+ADD participant to secret santa
+curl -X POST -H "Content-Type: application/json" -d '{"participantId": 1, "giftSuggestions": "Books, Chocolates"}' http://localhost:8080/api/v1/secretsanta/1/participants
