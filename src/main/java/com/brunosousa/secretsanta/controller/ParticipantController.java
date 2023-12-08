@@ -4,10 +4,7 @@ import com.brunosousa.secretsanta.model.Participant;
 import com.brunosousa.secretsanta.repository.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(("/api/v1/secretsanta/participants"))
@@ -21,4 +18,11 @@ public class ParticipantController {
         Participant save = repository.save(p);
         return ResponseEntity.ok(save);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Participant> getParticipant(@PathVariable("id") Long id) {
+        Participant participant = repository.findById(id).orElseThrow(() -> new RuntimeException("Participant not found"));
+        return ResponseEntity.ok(participant);
+    }
+
 }

@@ -1,13 +1,11 @@
 package com.brunosousa.secretsanta.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
+@Table(uniqueConstraints = { @UniqueConstraint(name = "UniqueUser", columnNames = { "email", "phone" }) })
 public class Participant {
 
     @Id
