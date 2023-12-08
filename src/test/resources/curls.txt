@@ -2,5 +2,12 @@ curl -X GET http://localhost:8080/api/v1/secretsanta
 
 curl -X POST -H "Content-Type: application/json" -d '["Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Helen", "Igor", "Jack"]' http://localhost:8080/api/v1/secretsanta/draw
 
+CREATE new secret santa
+curl -X POST -H "Content-Type: application/json" -d '{"name": "Secret Santa Event", "description": "Office Secret Santa", "location": "Office", "organizer": "Alice", "status": "Active", "giftExchangeDate": "2023-12-25 12:00:00"}' http://localhost:8080/api/v1/secretsanta/
+
+
 NEW Participant
 curl -X POST -H "Content-Type: application/json" -d '{"name": "Alice", "email": "alice@example.com", "phone": "1234567890"}' http://localhost:8080/api/v1/secretsanta/participants/
+
+GET participant
+curl -X GET http://localhost:8080/api/v1/secretsanta/participants/1
