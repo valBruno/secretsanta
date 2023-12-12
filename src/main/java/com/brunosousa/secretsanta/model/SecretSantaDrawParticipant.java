@@ -3,13 +3,13 @@ package com.brunosousa.secretsanta.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(name = "UniqueUserPerSecretSanta", columnNames = { "drawId", "participantId" }) })
+@Table(uniqueConstraints = { @UniqueConstraint(name = "UniqueUserPerSecretSanta", columnNames = { "secretSantaId", "participantId" }) })
 public class SecretSantaDrawParticipant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    Long drawId;
+    Long secretSantaId;
     Long participantId;
     Long drawnParticipantId;
     String giftSuggestions;
@@ -22,12 +22,12 @@ public class SecretSantaDrawParticipant {
         this.id = id;
     }
 
-    public Long getDrawId() {
-        return drawId;
+    public Long getSecretSantaId() {
+        return secretSantaId;
     }
 
-    public void setDrawId(Long drawId) {
-        this.drawId = drawId;
+    public void setSecretSantaId(Long secretSantaId) {
+        this.secretSantaId = secretSantaId;
     }
 
     public Long getParticipantId() {

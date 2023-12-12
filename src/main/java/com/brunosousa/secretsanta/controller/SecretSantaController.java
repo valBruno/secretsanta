@@ -7,6 +7,7 @@ import com.brunosousa.secretsanta.service.SecretSantaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 
@@ -29,16 +30,15 @@ public class SecretSantaController {
         return ResponseEntity.ok(secretSanta);
     }
 
+    @PostMapping("/{id}")
+    public ResponseEntity<SecretSanta> drawSecretSanta(@PathVariable("id") Long id) {
+        SecretSanta secretSanta = service.drawSecretSanta(id);
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(secretSanta.getId()).toUri()).build();
+    }
+
     @PostMapping("/{id}/participants")
     public ResponseEntity<SecretSantaDrawParticipant> addParticipant(@PathVariable("id") Long id, @RequestBody AddParticipantRecord r) {
         SecretSantaDrawParticipant secretSanta = service.addParticipant(id, r);
         return ResponseEntity.ok(secretSanta);
-    }
-
-
-    @PostMapping("/draw")
-    public ResponseEntity<String> drawNames(@RequestBody List<String> names) {
-        String response = service.draw(names);
-        return ResponseEntity.ok(response);
     }
 }

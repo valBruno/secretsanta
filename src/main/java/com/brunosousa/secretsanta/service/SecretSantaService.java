@@ -7,8 +7,8 @@ import com.brunosousa.secretsanta.repository.SecretSantaDrawParticipantRepositor
 import com.brunosousa.secretsanta.repository.SecretSantaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,22 +21,17 @@ public class SecretSantaService {
     @Autowired
     SecretSantaDrawParticipantRepository drawParticipantRepository;
 
-    public String draw(List<String> names) {
+    public List<SecretSantaDrawParticipant> draw(List<SecretSantaDrawParticipant> participants) {
 
-        Collections.shuffle(names);
+        Collections.shuffle(participants);
 
-        List<String> result = new ArrayList<>();
-        for (int i = 0; i < names.size(); i++) {
-            String currentName = names.get(i);
-            String nextName = names.get((i + 1) % names.size());
-            result.add(currentName + " -> " + nextName);
+        for (int i = 0; i < participants.size(); i++) {
+            SecretSantaDrawParticipant current = participants.get(i);
+            SecretSantaDrawParticipant next = participants.get((i + 1) % participants.size());
+            current.setDrawnParticipantId(next.getParticipantId());
         }
 
-        System.out.println(result);
-
-        String resultado = String.join("\n", result);
-
-        return resultado;
+        return participants;
     }
 
     public SecretSanta createSecretSanta(SecretSanta p) {
@@ -50,13 +45,34 @@ public class SecretSantaService {
     public SecretSantaDrawParticipant addParticipant(Long id, AddParticipantRecord r) {
 
         SecretSantaDrawParticipant add = new SecretSantaDrawParticipant();
-        add.setDrawId(id);
+        add.setSecretSantaId(id);
         add.setParticipantId(r.participantId());
         add.setGiftSuggestions(r.giftSuggestions());
 
         return drawParticipantRepository.save(add);
 
 
+
+
+    }
+
+    @Transactional
+    public SecretSanta drawSecretSanta(Long id) {
+
+        SecretSanta secretSanta = repository.findById(id).orElseThrow();
+//        TODO check if secret santa is open for drawing
+
+        List<SecretSantaDrawParticipant> participants = drawParticipantRepository.findAllBySecretSantaId(id);
+
+        List<SecretSantaDrawParticipant> drawnParticipants = draw(participants);
+
+        secretSanta.setStatus("DRAWN");
+
+        repository.save(secretSanta);
+
+        drawParticipantRepository.saveAll(drawnParticipants);
+
+        return secretSanta;
 
 
     }
