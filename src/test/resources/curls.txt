@@ -8,6 +8,15 @@ curl -X POST -H "Content-Type: application/json" -d '{"name": "Secret Santa Even
 
 NEW Participant
 curl -X POST -H "Content-Type: application/json" -d '{"name": "Alice", "email": "alice@example.com", "phone": "1234567890"}' http://localhost:8080/api/v1/secretsanta/participants/
+curl -X POST -H "Content-Type: application/json" -d '{"name": "Bob", "email": "bob@example.com"}' http://localhost:8080/api/v1/secretsanta/participants/
+curl -X POST -H "Content-Type: application/json" -d '{"name": "Charlie", "email": "charlie@example.com"}' http://localhost:8080/api/v1/secretsanta/participants/
+curl -X POST -H "Content-Type: application/json" -d '{"name": "David", "email": "david@example.com"}' http://localhost:8080/api/v1/secretsanta/participants/
+curl -X POST -H "Content-Type: application/json" -d '{"name": "Eve", "email": "eve@example.com"}' http://localhost:8080/api/v1/secretsanta/participants/
+curl -X POST -H "Content-Type: application/json" -d '{"name": "Frank", "email": "frank@example.com"}' http://localhost:8080/api/v1/secretsanta/participants/
+curl -X POST -H "Content-Type: application/json" -d '{"name": "Grace", "email": "grace@example.com"}' http://localhost:8080/api/v1/secretsanta/participants/
+curl -X POST -H "Content-Type: application/json" -d '{"name": "Helen", "email": "helen@example.com"}' http://localhost:8080/api/v1/secretsanta/participants/
+curl -X POST -H "Content-Type: application/json" -d '{"name": "Igor", "email": "igor@example.com"}' http://localhost:8080/api/v1/secretsanta/participants/
+curl -X POST -H "Content-Type: application/json" -d '{"name": "Jack", "email": "jack@example.com"}' http://localhost:8080/api/v1/secretsanta/participants/
 
 GET participant
 curl -X GET http://localhost:8080/api/v1/secretsanta/participants/1
