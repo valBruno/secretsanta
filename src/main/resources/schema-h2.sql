@@ -5,7 +5,8 @@ CREATE TABLE secret_santa (
     location VARCHAR(255),
     organizer VARCHAR(255),
     status VARCHAR(255),
-    giftExchangeDate TIMESTAMP
+    gift_exchange_date TIMESTAMP,
+    created_at TIMESTAMP
 );
 
 CREATE TABLE participant (
@@ -18,9 +19,9 @@ CREATE TABLE participant (
 
 CREATE TABLE secret_santa_draw_participant (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    drawId BIGINT,
-    participantId BIGINT,
-    drawnParticipantId BIGINT,
-    giftSuggestions VARCHAR(255),
-    CONSTRAINT UniqueUserPerSecretSanta UNIQUE (drawId, participantId)
+    secret_santa_id BIGINT,
+    participant_id BIGINT,
+    drawn_participant_id BIGINT,
+    gift_suggestions VARCHAR(255),
+    CONSTRAINT UniqueUserPerSecretSanta UNIQUE (secret_santa_id, participant_id)
 );
