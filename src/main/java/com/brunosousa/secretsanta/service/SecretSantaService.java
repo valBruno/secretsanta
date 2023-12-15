@@ -50,10 +50,6 @@ public class SecretSantaService {
         add.setGiftSuggestions(r.giftSuggestions());
 
         return drawParticipantRepository.save(add);
-
-
-
-
     }
 
     @Transactional
